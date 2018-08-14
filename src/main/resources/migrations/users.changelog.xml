@@ -9,10 +9,10 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="username" type="varchar(255)"></column>
-            <column name="password" type="varchar(255)"></column>
-            <column name="email" type="varchar(255)"></column>
-            <column name="photo_url" type="varchar(255)"></column>
+            <column name="username" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="photo_url" type="varchar(255)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -20,7 +20,7 @@ public class JPAUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user =  userRepository.findByUsername(s)
+        User user =  userRepository.findById(Long.parseLong(s))
                 .orElseThrow(() -> new UsernameNotFoundException(s));
         return new JPAUser(user);
     }
