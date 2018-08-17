@@ -19,9 +19,9 @@ public class JPAUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user =  userRepository.findById(Long.parseLong(s))
-                .orElseThrow(() -> new UsernameNotFoundException(s));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user =  userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
         return new JPAUser(user);
     }
 }

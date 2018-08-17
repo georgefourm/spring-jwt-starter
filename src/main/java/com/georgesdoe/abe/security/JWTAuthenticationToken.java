@@ -13,13 +13,9 @@ public class JWTAuthenticationToken extends AbstractAuthenticationToken {
         this.token = token;
     }
 
-    public String getToken(){
-        return token;
-    }
-
     @Override
     public Object getCredentials() {
-        return null;
+        return token;
     }
 
     @Override
