@@ -2,6 +2,7 @@ package com.georgesdoe.abe.configuration;
 
 import com.georgesdoe.abe.repository.UserRepository;
 import com.georgesdoe.abe.security.JPAUserDetailsService;
+import com.georgesdoe.abe.security.JWTAuthenticationFilter;
 import com.georgesdoe.abe.security.JWTAuthenticationProvider;
 import com.georgesdoe.abe.security.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -28,6 +28,9 @@ public class ApplicationSecurityConfigurer extends WebSecurityConfigurerAdapter 
 
     @Autowired
     private JWTAuthenticationProvider provider;
+
+    @Autowired
+    private JWTManager jwtManager;
 
     @Override
     protected void configure(HttpSecurity security) throws Exception {
@@ -43,9 +46,8 @@ public class ApplicationSecurityConfigurer extends WebSecurityConfigurerAdapter 
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
-                .addFilterBefore(
-                        new JWTAuthorizationFilter(authenticationManager()),
-                        BasicAuthenticationFilter.class)
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(),jwtManager))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .authorizeRequests()
                     .anyRequest()
                     .authenticated();

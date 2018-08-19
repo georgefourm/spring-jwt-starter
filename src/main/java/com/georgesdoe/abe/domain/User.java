@@ -1,6 +1,8 @@
 package com.georgesdoe.abe.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -18,6 +20,7 @@ public class User{
     private String username;
 
     @NotNull
+    @JsonIgnore
     private String password;
 
     @Email

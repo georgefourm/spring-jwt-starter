@@ -9,22 +9,23 @@ import java.util.Collection;
 
 public class JPAUser implements UserDetails{
 
-    private String username;
-
-    private String password;
+    private User user;
 
     public JPAUser(@NotNull User user){
-        this.username = user.getUsername();
-        this.password = user.getPassword();
+        this.user = user;
+    }
+
+    public Long getId(){
+        return user.getId();
     }
 
     public String getUsername() {
-        return username;
+        return user.getUsername();
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override

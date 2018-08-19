@@ -2,7 +2,7 @@ package com.georgesdoe.abe.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("jwt")
+@ConfigurationProperties(prefix = "jwt")
 public class JWTProperties {
 
     private String issuer;
@@ -10,6 +10,16 @@ public class JWTProperties {
     private String secret;
 
     private String audience;
+
+    private Long expiration;
+
+    public Long getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(Long expiration) {
+        this.expiration = expiration;
+    }
 
     public String getAudience() {
         return audience;
