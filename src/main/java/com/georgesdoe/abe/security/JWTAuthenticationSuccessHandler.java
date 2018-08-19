@@ -1,7 +1,6 @@
 package com.georgesdoe.abe.security;
 
-import com.georgesdoe.abe.configuration.JWTManager;
-import com.georgesdoe.abe.domain.User;
+import com.georgesdoe.abe.configuration.jwt.JWTManager;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServerHttpResponse;

@@ -1,5 +1,7 @@
 package com.georgesdoe.abe.configuration;
 
+import com.georgesdoe.abe.configuration.jwt.JWTManager;
+import com.georgesdoe.abe.configuration.jwt.JWTProperties;
 import com.georgesdoe.abe.repository.UserRepository;
 import com.georgesdoe.abe.security.JPAUserDetailsService;
 import com.georgesdoe.abe.security.JWTAuthenticationFilter;

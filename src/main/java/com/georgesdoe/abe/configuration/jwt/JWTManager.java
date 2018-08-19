@@ -1,4 +1,4 @@
-package com.georgesdoe.abe.configuration;
+package com.georgesdoe.abe.configuration.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

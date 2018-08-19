@@ -1,6 +1,6 @@
 package com.georgesdoe.abe.security;
 
-import com.georgesdoe.abe.configuration.JWTManager;
+import com.georgesdoe.abe.configuration.jwt.JWTManager;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 

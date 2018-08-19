@@ -1,4 +1,4 @@
-package com.georgesdoe.abe.configuration;
+package com.georgesdoe.abe.configuration.jwt;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

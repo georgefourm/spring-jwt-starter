@@ -1,7 +1,7 @@
 package com.georgesdoe.abe.security;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.georgesdoe.abe.configuration.JWTManager;
+import com.georgesdoe.abe.configuration.jwt.JWTManager;
 import com.georgesdoe.abe.domain.User;
 import com.georgesdoe.abe.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
