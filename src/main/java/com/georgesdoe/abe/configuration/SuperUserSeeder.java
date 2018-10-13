@@ -36,6 +36,7 @@ public class SuperUserSeeder {
         long userCount = repository.count();
         if (userCount > 0){
             logger.info(String.format("Found %d user(s), skipping superuser creation",userCount));
+            return;
         }
         logger.info("No users found, creating superuser...");
 
