@@ -1,6 +1,6 @@
 package com.georgesdoe.abe.exception;
 
-public class ResourceNotFoundException extends APIException{
+public class ResourceNotFoundException extends APIException {
 
     private Class resource;
 
