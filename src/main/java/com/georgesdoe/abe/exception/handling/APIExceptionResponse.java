@@ -10,7 +10,7 @@ public class APIExceptionResponse {
 
     public APIExceptionResponse(Exception e){
         message = e.getMessage();
-        error = e.getClass().getName();
+        error = e.getClass().getSimpleName();
     }
 
     public APIExceptionResponse(){

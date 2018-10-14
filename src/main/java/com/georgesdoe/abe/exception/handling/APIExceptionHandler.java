@@ -1,39 +1,44 @@
 package com.georgesdoe.abe.exception.handling;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class APIExceptionHandler {
+public class APIExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler
-    public ResponseEntity<APIExceptionResponse> handle(Exception e){
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new APIExceptionResponse(e));
-    }
-
-    @ExceptionHandler({ConstraintViolationException.class})
-    public ResponseEntity<APIExceptionResponse> handle(ConstraintViolationException e){
-        APIExceptionResponse response = new APIExceptionResponse();
-        response.setMessage("Validation Failed");
-        response.setError("ValidationException");
-
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException e,WebRequest request){
         Map<String,String> messages = new HashMap<>();
         for (ConstraintViolation violation : e.getConstraintViolations()){
             messages.put(violation.getPropertyPath().toString(),violation.getMessage());
         }
-        response.setDetails(messages);
+        ValidationException exception = new ValidationException("Validation Failed");
+
+        return handleExceptionInternal(exception,messages,new HttpHeaders(),HttpStatus.UNPROCESSABLE_ENTITY,request);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body,
+                                                             HttpHeaders headers, HttpStatus status,
+                                                             WebRequest request) {
+        APIExceptionResponse response = new APIExceptionResponse(ex);
+        response.setDetails(body);
 
         return ResponseEntity
-                .status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .status(status)
+                .headers(headers)
                 .body(response);
     }
 }
