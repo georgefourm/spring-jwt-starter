@@ -1,5 +1,6 @@
 package com.georgesdoe.abe.exception.handling;
 
+import com.georgesdoe.abe.exception.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,11 @@ public class APIExceptionHandler extends ResponseEntityExceptionHandler {
         response.setDetails(messages);
 
         return handleExceptionInternal(ex, response, headers, status, request);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    protected ResponseEntity<Object> handleResourceNotFound(ResourceNotFoundException ex,WebRequest request){
+        return handleExceptionInternal(ex,null,new HttpHeaders(),HttpStatus.NOT_FOUND,request);
     }
 
     @Override
