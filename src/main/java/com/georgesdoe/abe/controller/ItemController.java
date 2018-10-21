@@ -39,4 +39,12 @@ public class ItemController {
         repository.save(itemPdo);
         return item;
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remove(@PathVariable("id") Long id){
+        Item item = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(Item.class));
+        repository.delete(item);
+    }
 }
