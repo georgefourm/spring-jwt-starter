@@ -4,6 +4,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -18,15 +21,21 @@ import java.util.Map;
 @ControllerAdvice
 public class APIExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException e,WebRequest request){
-        Map<String,String> messages = new HashMap<>();
-        for (ConstraintViolation violation : e.getConstraintViolations()){
-            messages.put(violation.getPropertyPath().toString(),violation.getMessage());
-        }
-        ValidationException exception = new ValidationException("Validation Failed");
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-        return handleExceptionInternal(exception,messages,new HttpHeaders(),HttpStatus.UNPROCESSABLE_ENTITY,request);
+        Map<String,String> messages = new HashMap<>();
+        for (FieldError error : ex.getBindingResult().getFieldErrors()){
+            messages.put(error.getField(),error.getDefaultMessage());
+        }
+
+        APIExceptionResponse response = new APIExceptionResponse();
+        response.setError("ValidationError");
+        response.setMessage("Validation Failed");
+        response.setDetails(messages);
+
+        return handleExceptionInternal(ex, response, headers, status, request);
     }
 
     @Override
@@ -35,6 +44,10 @@ public class APIExceptionHandler extends ResponseEntityExceptionHandler {
                                                              WebRequest request) {
         APIExceptionResponse response = new APIExceptionResponse(ex);
         response.setDetails(body);
+
+        if (body instanceof APIExceptionResponse){
+            response = (APIExceptionResponse) body;
+        }
 
         return ResponseEntity
                 .status(status)

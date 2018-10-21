@@ -2,6 +2,8 @@ package com.georgesdoe.abe.domain;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -19,8 +21,10 @@ public class Item {
 
     private String description;
 
+    @Min(0)
     private Float baseFee;
 
+    @Min(0)
     private Integer capacity;
 
     private Boolean active;
