@@ -2,7 +2,6 @@ package com.georgesdoe.abe.domain;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -22,12 +21,12 @@ public class Item {
     private String description;
 
     @Min(0)
-    private Float baseFee;
+    private Float baseFee = 0.0f;
 
     @Min(0)
-    private Integer capacity;
+    private Integer capacity = 0;
 
-    private Boolean active;
+    private Boolean active = true;
 
     public Long getId() {
         return id;
