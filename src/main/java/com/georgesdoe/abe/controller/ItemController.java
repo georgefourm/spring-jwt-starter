@@ -2,6 +2,8 @@ package com.georgesdoe.abe.controller;
 
 import com.georgesdoe.abe.domain.Item;
 import com.georgesdoe.abe.repository.ItemRepository;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,11 @@ public class ItemController {
 
     public ItemController(ItemRepository repository){
         this.repository = repository;
+    }
+
+    @GetMapping
+    public Iterable<Item> index(@SortDefault("name") Pageable request){
+        return repository.findAll(request);
     }
 
     @PostMapping
