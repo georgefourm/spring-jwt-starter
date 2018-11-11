@@ -1,8 +1,8 @@
 package com.georgesdoe.abe.controller;
 
 import com.georgesdoe.abe.domain.Item;
-import com.georgesdoe.abe.exception.ResourceNotFoundException;
-import com.georgesdoe.abe.repository.ItemRepository;
+import com.georgesdoe.abe.dto.ItemDto;
+import com.georgesdoe.abe.service.ItemService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
@@ -14,37 +14,31 @@ import javax.validation.Valid;
 @RequestMapping("/items")
 public class ItemController {
 
-    private ItemRepository repository;
+    private ItemService service;
 
-    public ItemController(ItemRepository repository){
-        this.repository = repository;
+    public ItemController(ItemService service) {
+        this.service = service;
     }
 
     @GetMapping
     public Iterable<Item> index(@SortDefault("name") Pageable request){
-        return repository.findAll(request);
+        return service.index(request);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Item create(@Valid @RequestBody Item item) {
-        repository.save(item);
-        return item;
+    public Item create(@Valid @RequestBody ItemDto dto) {
+        return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    public Item update(@PathVariable("id") Long id,@Valid @RequestBody Item itemPdo){
-        Item item = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(Item.class));
-        itemPdo.setId(id);
-        repository.save(itemPdo);
-        return item;
+    public Item update(@PathVariable("id") Long id,@Valid @RequestBody ItemDto dto){
+        return service.update(id,dto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remove(@PathVariable("id") Long id){
-        Item item = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(Item.class));
-        repository.delete(item);
+        service.remove(id);
     }
 }
