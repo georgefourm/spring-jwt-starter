@@ -1,4 +1,4 @@
-package com.georgesdoe.abe.security;
+package com.georgesdoe.abe.security.jwt;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.georgesdoe.abe.configuration.jwt.JWTManager;

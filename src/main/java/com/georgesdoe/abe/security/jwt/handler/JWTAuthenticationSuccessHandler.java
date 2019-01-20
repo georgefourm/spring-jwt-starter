@@ -1,6 +1,7 @@
-package com.georgesdoe.abe.security;
+package com.georgesdoe.abe.security.jwt.handler;
 
 import com.georgesdoe.abe.configuration.jwt.JWTManager;
+import com.georgesdoe.abe.security.JPAUser;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServerHttpResponse;
@@ -17,7 +18,7 @@ public class JWTAuthenticationSuccessHandler implements AuthenticationSuccessHan
 
     private JWTManager manager;
 
-    JWTAuthenticationSuccessHandler(JWTManager manager){
+    public JWTAuthenticationSuccessHandler(JWTManager manager){
         this.manager = manager;
     }
 

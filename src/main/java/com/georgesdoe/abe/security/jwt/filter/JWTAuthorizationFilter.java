@@ -1,5 +1,6 @@
-package com.georgesdoe.abe.security;
+package com.georgesdoe.abe.security.jwt.filter;
 
+import com.georgesdoe.abe.security.jwt.JWTAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;

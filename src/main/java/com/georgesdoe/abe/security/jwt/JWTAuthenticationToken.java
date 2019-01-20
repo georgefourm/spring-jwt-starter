@@ -1,4 +1,4 @@
-package com.georgesdoe.abe.security;
+package com.georgesdoe.abe.security.jwt;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
@@ -8,7 +8,7 @@ public class JWTAuthenticationToken extends AbstractAuthenticationToken {
 
     private String token;
 
-    JWTAuthenticationToken(String token) {
+    public JWTAuthenticationToken(String token) {
         super(new ArrayList<>());
         this.token = token;
     }
