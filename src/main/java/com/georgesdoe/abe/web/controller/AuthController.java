@@ -1,4 +1,4 @@
-package com.georgesdoe.abe.controller;
+package com.georgesdoe.abe.web.controller;
 
 import com.georgesdoe.abe.domain.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

@@ -36,7 +36,7 @@ public class APIExceptionHandler extends ResponseEntityExceptionHandler {
         response.setMessage("Validation Failed");
         response.setDetails(messages);
 
-        return handleExceptionInternal(ex, response, headers, status, request);
+        return handleExceptionInternal(ex, response, headers, HttpStatus.UNPROCESSABLE_ENTITY, request);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
