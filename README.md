@@ -1,7 +1,3 @@
-# ABE
+# Spring JWT Starter
 
-"A booking engine"
-
-A booking back-end created mainly for learning purposes
-
-(In Development)
+A boilerplate setup for spring boot based applications, complete with liquibase, configuration and JWT Bearer authentication
