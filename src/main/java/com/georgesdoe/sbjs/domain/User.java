@@ -1,7 +1,6 @@
 package com.georgesdoe.sbjs.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,11 +21,8 @@ public class User{
     private String username;
 
     @NotNull
-    @JsonIgnore
     private String password;
 
     @Email
     private String email;
-
-    private URL photoUrl;
 }
